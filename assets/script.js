@@ -10,14 +10,15 @@ saveBtn.on("click", function () {
     localStorage.setItem(time, text);
 });
 
-// Need to add color to indicate whether it is in the past, present, or future
+//Function for the current time
 function timeBlockColor() {
     var currTime = moment().hours();
-
+    
+    
     $(".time-block").each(function () {
         var blockTime = parseInt($(this).attr("id"));
 
-        //Set class for each time-block
+        //Set class for each time-block so the correct color is used from css
         if (blockTime > currTime) {
             $(this).addClass("future");
         } else if (blockTime === currTime) {
@@ -28,8 +29,19 @@ function timeBlockColor() {
     })
 };
 
-//Handle local storage and time stamps when page is refreshed/loaded    
+//Retrieve local storage and time stamps when page is refreshed/loaded    
+function localPlanner() {
 
+    $(".hour").each(function () {
+        var blockTime = $(this).text(); 
+        var currPlan = localStorage.getItem(blockTime);
 
+        if (currPlan !== null) {
+            $(this).siblings(".description").val(currPlan);
+        }
+    });
+}
+
+//Call the functions
 timeBlockColor();
-
+localPlanner();
