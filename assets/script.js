@@ -12,8 +12,21 @@ saveBtn.on("click", function () {
 
 // Need to add color to indicate whether it is in the past, present, or future
 function timeBlockColor() {
-    var currTime
-}
+    var currTime = moment().hours();
+
+    $(".time-block").each(function () {
+        var blockTime = parseInt($(this).attr("id"));
+
+        //Set class for each time-block
+        if (blockTime > currTime) {
+            $(this).addClass("future");
+        } else if (blockTime === currTime) {
+            $(this).addClass("present");
+        } else {
+            $(this).addClass("past");
+        }
+    })
+};
 
 //Handle local storage and time stamps when page is refreshed/loaded    
 
